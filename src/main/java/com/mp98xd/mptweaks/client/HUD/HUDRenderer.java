@@ -3,37 +3,46 @@ package com.mp98xd.mptweaks.client.HUD;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HUDRenderer implements HudRenderCallback {
 
-
     private final MinecraftClient client;
 
-    private final HashMap<String, String> hudItems;
+    private final List<HUDItem> hudItems;
+
+    private final int hudColor;
+
+    private final int yOffset;
 
     public HUDRenderer() {
         this.client = MinecraftClient.getInstance();
-        this.hudItems = new HashMap<>();
+        this.hudItems = new ArrayList<>();
+        this.hudColor = 0x6CB5FF;
+        this.yOffset = 10;
     }
 
     @Override
     public void onHudRender(DrawContext drawContext, float tickDelta) {
-        if (!this.client.options.hudHidden && this.client.player != null) {
-            ItemStack chestPlate = this.client.player.getInventory().getArmorStack(2);
+        if (!this.client.options.hudHidden) {
 
-            if (chestPlate.getItem().equals(Items.ELYTRA)) {
-                double elytraDurability = chestPlate.getMaxDamage() - chestPlate.getDamage();
+            int i = 0;
 
-                int elytraPercentage = (int) ( (elytraDurability / chestPlate.getMaxDamage()) * 100 );
+            for (HUDItem hudItem : hudItems) {
+                if (hudItem.getDisabled()) {
+                    continue;
+                }
 
-                drawContext.drawTextWithShadow(this.client.textRenderer, String.valueOf(elytraPercentage) + "%", 0, 0, 0x6CB5FF);
+                drawContext.drawTextWithShadow(this.client.textRenderer, hudItem.calculate(this.client), 0,  yOffset * i++, this.hudColor);
             }
+
         }
     }
 
+    public void addHudItem(HUDItem hudItem) {
+        this.hudItems.add(hudItem);
+    }
 
 }
