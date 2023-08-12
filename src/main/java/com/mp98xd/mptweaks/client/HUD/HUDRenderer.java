@@ -35,7 +35,7 @@ public class HUDRenderer implements HudRenderCallback {
                     continue;
                 }
 
-                drawContext.drawTextWithShadow(this.client.textRenderer, hudItem.calculate(this.client), 0,  yOffset * i++, this.hudColor);
+                drawContext.drawTextWithShadow(this.client.textRenderer, hudItem.calculate(this.client), 1,  2 + yOffset * i++, this.hudColor);
             }
 
         }
