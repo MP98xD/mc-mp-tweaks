@@ -11,6 +11,4 @@ Made with Fabric Loader and Fabric API
 
 ## TODO
 * Death message with coords
-* Hot swap Elytra w/ chest plate
-* Add logger
 * Add configurable options
