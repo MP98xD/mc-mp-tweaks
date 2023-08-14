@@ -32,7 +32,7 @@ public class Mp_tweaksClient implements ClientModInitializer {
 
         EVENT.register(hudRenderer);
 
-        Logger.debug("Registering HUD elements");
+        Logger.debug("Registered HUD elements");
     }
 
     private void initializeElytraSwap() {
@@ -47,6 +47,7 @@ public class Mp_tweaksClient implements ClientModInitializer {
 
         elytraSwap.init();
 
+        Logger.debug("Registered Elytra Swap");
     }
 
 }
